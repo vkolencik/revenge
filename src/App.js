@@ -37,7 +37,6 @@ function App () {
     await fetch('https://ceska-posta.app/send.php', {
       'credentials': 'include',
       'headers': {
-        'User-Agent': faker.internet.userAgent(),
         'Content-Type': 'application/x-www-form-urlencoded',
         'Upgrade-Insecure-Requests': '1',
         'Sec-Fetch-Dest': 'document',
