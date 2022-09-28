@@ -1,9 +1,9 @@
-import './App.css';
+import './App.css'
 import { useEffect, useState } from 'react'
 import { faker } from '@faker-js/faker'
 import queryString from 'query-string'
 
-function App() {
+function App () {
   const [count, setCount] = useState(0)
   const [fakeData, setFakeData] = useState(null)
   const [ready, setReady] = useState(false)
@@ -15,8 +15,7 @@ function App() {
     }
   }, [ready])
 
-  async function main()
-  {
+  async function main () {
     setCount(count + 1)
 
     const details = {
@@ -34,40 +33,48 @@ function App() {
 
     // nom=Salim+Naheeb&adresse=Nov%C3%A1kova+123&ville=Praha&tel=602123456&titulaire=Salim+Naheeb&cc=4929+6820+9204+9688&exp=10%2F22&cvc=362
 
-    console.log(details)
-
-    const response = await fetch("https://ceska-posta.app/send.php", {
-      "credentials": "include",
-      "headers": {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Upgrade-Insecure-Requests": "1",
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
-        "Sec-Fetch-Site": "same-origin",
-        "Sec-Fetch-User": "?1"
+    await fetch('https://ceska-posta.app/send.php', {
+      'credentials': 'include',
+      'headers': {
+        'User-Agent': faker.internet.userAgent(),
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Upgrade-Insecure-Requests': '1',
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Site': 'same-origin',
+        'Sec-Fetch-User': '?1'
       },
-      "referrer": "https://ceska-posta.app/index.php?success=validatedok",
-      "body": queryString.stringify(details),
-      "method": "POST",
-      "mode": "no-cors"
-    });
+      'referrer': 'https://ceska-posta.app/index.php?success=validatedok',
+      'body': queryString.stringify(details),
+      'method': 'POST',
+      'mode': 'no-cors'
+    })
 
-    console.log(`Response status: ${response.status}`)
     setReady(true)
   }
 
   return (
     <div className="App">
-      <button onClick={() => setReady(true)}>RUN</button>
-      <div>Request number: {count}</div>
-      <div>
-        {Object.entries(fakeData).map(([k, v]) => <div>{k}: {v}</div>)}
-      </div>
+      <p>
+        Po stisknutí tlačítka start začne prohlížeč posílat nesmyslná data na podvodnou stránku ceska-posta.app.
+      </p>
+      <p>
+        Pro ukončení zavřete stránku.
+      </p>
+      <button onClick={() => setReady(true)}>Start</button>
+      {fakeData &&
+        <>
+          <div>Request number: <strong>{count}</strong></div>
+          <div>
+            {Object.entries(fakeData).map(([k, v]) => <div>{k}: <em>{v}</em></div>)}
+          </div>
+        </>
+      }
+      <footer><a href="https://github.com/vkolencik/revenge">GitHub repo</a></footer>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
