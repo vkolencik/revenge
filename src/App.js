@@ -37,8 +37,6 @@ function App () {
       'credentials': 'include',
       'headers': {
         'User-Agent': faker.internet.userAgent(),
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
         'Content-Type': 'application/x-www-form-urlencoded',
         'Upgrade-Insecure-Requests': '1',
         'Sec-Fetch-Dest': 'document',
