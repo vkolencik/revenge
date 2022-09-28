@@ -18,12 +18,13 @@ function App () {
   async function main () {
     setCount(count + 1)
 
+    let name = faker.name.fullName()
     const details = {
-      nom: faker.name.fullName(),
+      nom: name,
       adresse: faker.address.streetAddress(),
       ville: faker.address.city(),
       tel: faker.phone.number(),
-      titulaire: faker.name.fullName(),
+      titulaire: name,
       cc: faker.finance.creditCardNumber('#### #### #### ####'),
       exp: '' + faker.date.future().getMonth().toString().padStart(2, '0') + '/' + faker.date.future().getFullYear().toString().substring(2),
       cvc: faker.finance.creditCardCVV()
@@ -61,7 +62,7 @@ function App () {
       <p>
         Pro ukončení zavřete stránku.
       </p>
-      <button onClick={() => setReady(true)}>Start</button>
+      {!fakeData && <button onClick={() => setReady(true)}>Start</button>}
       {fakeData &&
         <>
           <div>Request number: <strong>{count}</strong></div>
